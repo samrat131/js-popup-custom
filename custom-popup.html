@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>popup</title>
+</head>
+<style type="text/css">
+	.video-wrap{display: none; position: absolute; z-index: 99;}
+	.overlay{display: none; position: absolute; background: #333; width: 100%; height: 100%; opacity: 0.5;filter: alpha(opacity=50); z-index: 9;}
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var vid = document.getElementById("gig-player");
+
+	$('#top').click(function(event) {
+		event.preventDefault();
+		$vdo = $('#gig-video');
+		$bg = $('#overlay-bg');
+		
+		$bg.fadeIn('fast');
+
+		vw = 640;
+		vh = 360;
+		h =$(window).height();
+		w =$(window).width(); 
+		
+		sw = (w - vw) /2;
+		sh = (h - vh) /2;
+
+		// console.log(w);
+		// console.log(h);
+		// console.log(sw);
+		// console.log(sh);
+
+		$vdo.css('left', sw+'px');
+		$vdo.css('top', sh+'px');
+		$vdo.fadeIn('slow');
+		vid.play();
+	});
+	$('#overlay-bg').click(function(event) {
+		event.preventDefault();
+		
+		vid.pause();
+		$('#gig-video').fadeOut('fast');
+		$(this).fadeOut('slow');
+	});
+});
+</script>
+<body>
+<div id="overlay-bg" class="overlay"> </div>
+<div id="gig-video" class="video-wrap">
+	<video id="gig-player" width="640" controls>
+	  <source src="http://gigscanner.com/gs.mp4" type="video/mp4">
+	  Your browser does not support HTML5 video.
+	</video>
+</div>
+<a id="top" href="#open">Click here</a>
+</body>
+</html>
